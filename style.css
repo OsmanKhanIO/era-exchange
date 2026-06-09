@@ -226,8 +226,23 @@ form input#amount-input:focus { border-color: var(--primary); background: rgba(2
 .pulse { width: 6px; height: 6px; background: #10b981; border-radius: 50%; animation: pulse 2s infinite; }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
 
-/* CRITICAL: The canvas wrapper shrinks to fit the screen, but NEVER goes below 180px on mobile */
-.canvas-wrapper { position: relative; width: 100%; flex: 1; min-height: clamp(180px, 25vh, 300px); }
+/* THE MOBILE FIX: Explicit height prevents the chart from collapsing to 0px */
+.canvas-wrapper { 
+  position: relative; 
+  width: 100%; 
+  height: clamp(220px, 30vh, 350px); /* Hard height for mobile */
+  flex-shrink: 0; /* Prevents mobile browsers from squishing it */
+}
+
+/* THE DESKTOP FIX: Keeps the elegant, fluid layout on large screens */
+@media (min-width: 900px) {
+  .canvas-wrapper {
+    height: auto;
+    flex: 1; 
+    min-height: 0;
+  }
+}
+
 canvas { position: absolute; left: 0; top: 0; width: 100% !important; height: 100% !important; }
 
 *:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }

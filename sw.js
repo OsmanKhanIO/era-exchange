@@ -1,4 +1,4 @@
-const CACHE_NAME = "era-exchange-v3";
+const CACHE_NAME = "era-exchange-v4";
 const ASSETS = [
   "./",
   "./index.html",
